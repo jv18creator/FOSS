@@ -1,7 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import type { Page } from '@playwright/test';
-import { gotoEditor, studioTool } from './helpers';
+import {
+  gotoEditor,
+  studioTool,
+  setPageFormat,
+} from './helpers';
+
+export { setPageFormat };
 
 /** Canvas pixels at 96 DPI (matches editor). */
 export function mm(n: number): number {
@@ -27,14 +33,10 @@ export async function setTemplateName(page: Page, name: string) {
   await page.getByTestId('template-name').fill(name);
 }
 
-export async function setPageFormat(page: Page, formatId: string) {
-  await studioTool(page, 'Resize');
-  await page.getByTestId('page-format').selectOption(formatId);
-}
+export { setPageFormat } from './helpers';
 
 export async function setPortrait(page: Page) {
-  await studioTool(page, 'Resize');
-  await page.getByTestId('orientation-portrait').click();
+  await setPageFormat(page, 'a4');
 }
 
 export async function activateBackground(page: Page, label: string) {

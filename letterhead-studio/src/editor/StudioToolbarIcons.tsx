@@ -146,6 +146,38 @@ export function IconEyeOff({ className }: IconProps) {
   );
 }
 
+export function IconLayerBackward({ className }: IconProps) {
+  return (
+    <svg className={`${base} ${className ?? ''}`} viewBox="0 0 24 24" fill="none" aria-hidden>
+      <rect x="5" y="11" width="14" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+      <rect x="7" y="7" width="14" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+      <path
+        d="M12 16V9m0 0l-2.5 2.5M12 9l2.5 2.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function IconLayerForward({ className }: IconProps) {
+  return (
+    <svg className={`${base} ${className ?? ''}`} viewBox="0 0 24 24" fill="none" aria-hidden>
+      <rect x="5" y="8" width="14" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+      <rect x="7" y="4" width="14" height="9" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
+      <path
+        d="M12 13V6m0 0l-2.5 2.5M12 6l2.5 2.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export function IconGrip({ className }: IconProps) {
   return (
     <svg className={`${base} ${className ?? ''}`} viewBox="0 0 24 24" fill="currentColor" aria-hidden>

@@ -12,6 +12,9 @@ import {
   pngDimensions,
   pdfMediaBoxPoints,
   mmToPdfPoints,
+  setPageFormat,
+  setPageLandscape,
+  setEditorMode,
 } from './helpers';
 
 test.describe('A. Canvas & viewport', () => {
@@ -53,8 +56,7 @@ test.describe('C. Page formats', () => {
   for (const fmt of FORMATS) {
     test(`format ${fmt.label} shows mm dimensions and canvas pixels`, async ({ page }) => {
       await gotoEditor(page);
-      await studioTool(page, 'Resize');
-      await page.getByTestId('page-format').selectOption(fmt.id);
+      await setPageFormat(page, fmt.id);
       await expect(page.getByTestId('stage-format-label')).toContainText(fmt.label);
       await expect(page.getByTestId('stage-dimensions')).toContainText(
         `${fmt.w} × ${fmt.h} mm`,
@@ -74,8 +76,7 @@ test.describe('C. Page formats', () => {
     await page.getByTestId('add-body').click();
     const before = await editorCounts(page);
     expect(before.content).toBe(2);
-    await studioTool(page, 'Resize');
-    await page.getByTestId('page-format').selectOption('legal');
+    await setPageFormat(page, 'legal');
     await studioTool(page, 'Layers');
     await expect(page.getByTestId('layer-list')).toContainText('Create header');
     const after = await editorCounts(page);
@@ -84,9 +85,8 @@ test.describe('C. Page formats', () => {
 
   test('landscape swaps width and height on stage', async ({ page }) => {
     await gotoEditor(page);
-    await studioTool(page, 'Resize');
-    await page.getByTestId('page-format').selectOption('a4');
-    await page.getByTestId('orientation-landscape').click();
+    await setPageFormat(page, 'a4');
+    await setPageLandscape(page);
     await expect(page.getByTestId('stage-format-label')).toContainText('Landscape');
     await expect(page.getByTestId('stage-dimensions')).toContainText('297 × 210 mm');
     const size = await canvasSize(page);
@@ -99,8 +99,7 @@ test.describe('C. Page formats', () => {
     await studioTool(page, 'Text');
     await page.getByTestId('add-heading').click();
     const before = await editorCounts(page);
-    await studioTool(page, 'Resize');
-    await page.getByTestId('orientation-landscape').click();
+    await setPageLandscape(page);
     await studioTool(page, 'Layers');
     await expect(page.getByTestId('layer-list')).toContainText('Create header');
     const after = await editorCounts(page);
@@ -192,8 +191,7 @@ test.describe('E. Use template mode', () => {
     await studioTool(page, 'Layers');
     await page.getByTestId('sel-locked').check();
     await page.getByTestId('add-body').click();
-    await studioTool(page, 'Resize');
-    await page.getByTestId('mode-use').click();
+    await setEditorMode(page, 'use');
     await expect(page.getByTestId('delete-selected')).toHaveCount(0);
     await studioTool(page, 'Layers');
     await page.getByRole('button', { name: 'Create header' }).click();
@@ -208,9 +206,8 @@ test.describe('E. Use template mode', () => {
     await gotoEditor(page);
     await studioTool(page, 'Text');
     await page.getByTestId('add-heading').click();
-    await studioTool(page, 'Resize');
-    await page.getByTestId('mode-use').click();
-    await page.getByTestId('mode-design').click();
+    await setEditorMode(page, 'use');
+    await setEditorMode(page, 'design');
     await studioTool(page, 'Layers');
     await expect(page.getByTestId('delete-selected')).toBeEnabled();
     await expect(page.getByTestId('sel-locked')).toBeVisible();
@@ -272,8 +269,7 @@ test.describe('H. Export / import', () => {
     await page.getByTestId('add-heading').click();
     await studioTool(page, 'Layers');
     await page.getByTestId('sel-label').fill('Company name');
-    await studioTool(page, 'Resize');
-    await page.getByTestId('page-format').selectOption('us-letter');
+    await setPageFormat(page, 'us-letter');
     const [download] = await Promise.all([
       page.waitForEvent('download'),
       studioExport(page, 'export-json'),
@@ -309,8 +305,7 @@ test.describe('H. Export / import', () => {
 
   test('PDF MediaBox matches page size in points', async ({ page }) => {
     await gotoEditor(page);
-    await studioTool(page, 'Resize');
-    await page.getByTestId('page-format').selectOption('us-letter');
+    await setPageFormat(page, 'us-letter');
     await studioTool(page, 'Text');
     await page.getByTestId('add-heading').click();
     const [download] = await Promise.all([
@@ -328,8 +323,7 @@ test.describe('H. Export / import', () => {
 
   test('landscape PNG uses swapped dimensions', async ({ page }) => {
     await gotoEditor(page);
-    await studioTool(page, 'Resize');
-    await page.getByTestId('orientation-landscape').click();
+    await setPageLandscape(page);
     const [download] = await Promise.all([
       page.waitForEvent('download'),
       studioExport(page, 'export-png'),
@@ -343,8 +337,7 @@ test.describe('H. Export / import', () => {
 
   test('JSON round-trip restores orientation', async ({ page }) => {
     await gotoEditor(page);
-    await studioTool(page, 'Resize');
-    await page.getByTestId('orientation-landscape').click();
+    await setPageLandscape(page);
     await studioTool(page, 'Text');
     await page.getByTestId('add-heading').click();
     const [download] = await Promise.all([
@@ -384,11 +377,12 @@ test.describe('B. Page bounds & pointer', () => {
 });
 
 test.describe('I. Regression', () => {
-  test('orientation controls are available', async ({ page }) => {
+  test('landscape resize swaps canvas dimensions', async ({ page }) => {
     await gotoEditor(page);
-    await studioTool(page, 'Resize');
-    await expect(page.getByTestId('orientation-portrait')).toHaveClass(/active/);
-    await page.getByTestId('orientation-landscape').click();
-    await expect(page.getByTestId('orientation-landscape')).toHaveClass(/active/);
+    const before = await canvasSize(page);
+    await setPageLandscape(page);
+    const after = await canvasSize(page);
+    expect(after.width).toBe(before.height);
+    expect(after.height).toBe(before.width);
   });
 });

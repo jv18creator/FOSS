@@ -1326,6 +1326,15 @@ export function useLetterheadCanvas(
     };
   };
 
+  const getActiveLayerIndex = (): number | null => {
+    const canvas = fabricRef.current;
+    const obj = canvas?.getActiveObject();
+    if (!canvas || !obj || isGuide(obj)) return null;
+    const objects = canvas.getObjects().filter((o) => !isGuide(o));
+    const idx = objects.indexOf(obj);
+    return idx >= 0 ? idx : null;
+  };
+
   editorBridgeRef.current = { pushHistory, selectObject };
 
   return {
@@ -1374,6 +1383,7 @@ export function useLetterheadCanvas(
     reorderLayer,
     layers,
     activeMeta,
+    getActiveLayerIndex,
     activeSelection,
     revision,
     displayWidth: width,

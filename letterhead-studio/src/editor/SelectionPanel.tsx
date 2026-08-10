@@ -1,6 +1,7 @@
 import type { EditorMode } from '../hooks/useLetterheadCanvas';
 import { StudioEmptyState } from './StudioEmptyState';
 import { IconEmptySelection } from './StudioPanelIcons';
+import { IconDelete, IconLayerBackward, IconLayerForward } from './StudioToolbarIcons';
 
 interface SelectionPanelProps {
   mode: EditorMode;
@@ -88,21 +89,37 @@ export function SelectionPanel({
           </label>
         </>
       )}
-      <div className="studio-btn-row">
-        <button type="button" onClick={onBringForward}>
-          Forward
-        </button>
-        <button type="button" onClick={onSendBackward}>
-          Back
-        </button>
+      <div className="studio-selection-actions">
+        <span className="studio-selection-actions-label">Arrange</span>
+        <div className="studio-layer-order">
+          <button
+            type="button"
+            className="studio-layer-order-btn"
+            aria-label="Send backward"
+            onClick={onSendBackward}
+          >
+            <IconLayerBackward />
+            <span>Back</span>
+          </button>
+          <button
+            type="button"
+            className="studio-layer-order-btn"
+            aria-label="Bring forward"
+            onClick={onBringForward}
+          >
+            <IconLayerForward />
+            <span>Forward</span>
+          </button>
+        </div>
         <button
           type="button"
-          className="studio-btn-danger"
+          className="studio-layer-delete-btn"
           data-testid="delete-selected"
           onClick={onDelete}
           disabled={mode === 'use'}
         >
-          Delete
+          <IconDelete />
+          <span>Delete</span>
         </button>
       </div>
     </div>

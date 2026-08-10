@@ -21,8 +21,10 @@ export default async (page) => {
   await tool('Templates');
   await page.getByTestId('template-name').fill('Ledger Harvest');
   await tool('Resize');
-  await page.getByTestId('page-format').selectOption('executive');
-  await page.getByTestId('orientation-portrait').click();
+  await page.getByTestId('resize-units').selectOption('cm');
+  await page.getByTestId('resize-width').fill('18.42');
+  await page.getByTestId('resize-height').fill('26.67');
+  await page.getByTestId('resize-apply').click();
   await tool('Background');
   await page.getByRole('button', { name: 'Mint', exact: true }).click();
 

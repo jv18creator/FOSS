@@ -21,8 +21,7 @@ export default async (page) => {
   await tool('Templates');
   await page.getByTestId('template-name').fill('Atelier Nord');
   await tool('Resize');
-  await page.getByTestId('page-format').selectOption('a4');
-  await page.getByTestId('orientation-portrait').click();
+  await page.getByRole('button', { name: 'A4 Portrait', exact: true }).click();
   await tool('Background');
   await page.getByRole('button', { name: 'Cloud', exact: true }).click();
 

@@ -21,8 +21,7 @@ export default async (page) => {
   await tool('Templates');
   await page.getByTestId('template-name').fill('Violet Hour');
   await tool('Resize');
-  await page.getByTestId('page-format').selectOption('us-letter');
-  await page.getByTestId('orientation-portrait').click();
+  await page.getByRole('button', { name: 'Letter Portrait', exact: true }).click();
   await tool('Background');
   await page.getByRole('button', { name: 'Lilac', exact: true }).click();
 

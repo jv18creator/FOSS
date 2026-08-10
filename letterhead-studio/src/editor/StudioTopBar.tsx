@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { StudioFloatingTip } from '../components/StudioFloatingTip';
 import type { EditorMode } from '../hooks/useLetterheadCanvas';
 import type { ActiveSelectionState } from '../hooks/useLetterheadCanvas';
 import { STUDIO_FONT_FAMILIES, studioFontSizeSelectOptions } from './studioFonts';
@@ -9,7 +10,6 @@ import {
   IconHelp,
   IconLock,
   IconOpacity,
-  IconPosition,
   IconRedo,
   IconUndo,
 } from './StudioToolbarIcons';
@@ -51,12 +51,30 @@ export function StudioTopBar({
   onExportPng,
   onExportPdf,
 }: StudioTopBarProps) {
-  const [helpOpen, setHelpOpen] = useState(false);
+  const [opacityOpen, setOpacityOpen] = useState(false);
+  const opacityWrapRef = useRef<HTMLDivElement>(null);
   const selection = editor.activeSelection();
   const hasSelection = selection.kind !== 'none';
   const isText = selection.kind === 'text';
   const fillColor = hasSelection && 'fill' in selection ? (selection.fill ?? '#000000') : '#000000';
   const locked = hasSelection && 'locked' in selection ? selection.locked : false;
+  const opacityPercent = Math.round(
+    (('opacity' in selection ? selection.opacity : 1) ?? 1) * 100,
+  );
+
+  useEffect(() => {
+    if (!opacityOpen) return;
+    const onPointerDown = (event: PointerEvent) => {
+      if (
+        opacityWrapRef.current &&
+        !opacityWrapRef.current.contains(event.target as Node)
+      ) {
+        setOpacityOpen(false);
+      }
+    };
+    document.addEventListener('pointerdown', onPointerDown);
+    return () => document.removeEventListener('pointerdown', onPointerDown);
+  }, [opacityOpen]);
 
   return (
     <header className="studio-topbar">
@@ -150,31 +168,40 @@ export function StudioTopBar({
 
       {hasSelection && (
         <div className="studio-topbar-group studio-topbar-actions">
-          <button
-            type="button"
-            className="studio-text-btn"
-            aria-label="Position"
-            onClick={editor.bringForward}
-          >
-            <IconPosition />
-            <span>Position</span>
-          </button>
-          <label className="studio-icon-btn studio-opacity-wrap" title="Opacity">
-            <IconOpacity />
-            <input
-              type="range"
-              min={0}
-              max={100}
-              value={Math.round(
-                (('opacity' in selection ? selection.opacity : 1) ?? 1) * 100,
-              )}
-              className="studio-opacity-slider studio-range"
-              aria-label="Opacity"
-              onChange={(e) =>
-                editor.updateSelectedOpacity(Number(e.target.value) / 100)
-              }
-            />
-          </label>
+          <div className="studio-opacity-popover-wrap" ref={opacityWrapRef}>
+            <button
+              type="button"
+              className={`studio-opacity-trigger${opacityOpen ? ' active' : ''}`}
+              aria-label={`Opacity, ${opacityPercent} percent`}
+              aria-expanded={opacityOpen}
+              aria-haspopup="dialog"
+              onClick={() => setOpacityOpen((open) => !open)}
+            >
+              <IconOpacity />
+              <span className="studio-opacity-trigger-value" aria-hidden>
+                {opacityPercent}%
+              </span>
+            </button>
+            {opacityOpen && (
+              <div className="studio-opacity-popover" role="dialog" aria-label="Opacity">
+                <span className="studio-opacity-popover-label">Opacity</span>
+                <div className="studio-range-row studio-opacity-popover-row">
+                  <input
+                    type="range"
+                    min={0}
+                    max={100}
+                    value={opacityPercent}
+                    className="studio-range"
+                    aria-label="Opacity"
+                    onChange={(e) =>
+                      editor.updateSelectedOpacity(Number(e.target.value) / 100)
+                    }
+                  />
+                  <span className="studio-range-value">{opacityPercent}%</span>
+                </div>
+              </div>
+            )}
+          </div>
           <button
             type="button"
             className={`studio-icon-btn${locked ? ' active' : ''}`}
@@ -201,22 +228,11 @@ export function StudioTopBar({
           >
             <IconDelete />
           </button>
-          <div
-            className="studio-help-wrap"
-            onMouseEnter={() => setHelpOpen(true)}
-            onMouseLeave={() => setHelpOpen(false)}
-          >
-            <button
-              type="button"
-              className="studio-icon-btn"
-              aria-label="Help"
-              aria-expanded={helpOpen}
-              onClick={() => setHelpOpen((o) => !o)}
-            >
-              <IconHelp />
-            </button>
-            {helpOpen && (
-              <div className="studio-help-popover" role="tooltip">
+          <StudioFloatingTip
+            variant="popover"
+            placement="bottom"
+            content={
+              <>
                 <p>Selection tips</p>
                 <ul>
                   <li>⌘/Ctrl+Z undo, ⌘/Ctrl+Y or ⇧⌘/Ctrl+Z redo, Delete removes selection.</li>
@@ -224,9 +240,13 @@ export function StudioTopBar({
                   <li>Use Layers to reorder and preview on canvas.</li>
                   <li>Drag sidebar tiles onto the page to place them.</li>
                 </ul>
-              </div>
-            )}
-          </div>
+              </>
+            }
+          >
+            <button type="button" className="studio-icon-btn" aria-label="Help">
+              <IconHelp />
+            </button>
+          </StudioFloatingTip>
         </div>
       )}
 

@@ -6,6 +6,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from '@playwright/test';
+import { setPageFormat } from './resize-ui.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, '..');
@@ -48,9 +49,7 @@ async function buildTemplate(page, spec) {
 
   await tool('Templates');
   await page.getByTestId('template-name').fill(spec.name);
-  await tool('Resize');
-  await page.getByTestId('page-format').selectOption(spec.formatId);
-  await page.getByTestId('orientation-portrait').click();
+  await setPageFormat(page, spec.formatId);
   await tool('Background');
   await page.getByRole('button', { name: spec.bgLabel, exact: true }).click();
 

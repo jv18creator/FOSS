@@ -81,6 +81,37 @@ export function formatStageLabel(format: PageFormat): string {
   return `${format.label} · ${orient}`;
 }
 
+/** Match canvas pixels to a catalog format, or fall back to custom dimensions. */
+export function stageInfoFromPageSize(
+  pageSize: { width: number; height: number },
+  dpi: number = EDITOR_DPI,
+): { label: string; widthMm: number; heightMm: number } {
+  for (const base of PAGE_FORMATS) {
+    for (const orientation of ['portrait', 'landscape'] as const) {
+      const f = withOrientation(base, orientation);
+      const px = canvasPixelSize(f, dpi);
+      if (
+        Math.abs(px.width - pageSize.width) <= 1 &&
+        Math.abs(px.height - pageSize.height) <= 1
+      ) {
+        return {
+          label: formatStageLabel(f),
+          widthMm: f.widthMm,
+          heightMm: f.heightMm,
+        };
+      }
+    }
+  }
+  const widthMm = (pageSize.width / dpi) * 25.4;
+  const heightMm = (pageSize.height / dpi) * 25.4;
+  const orient = widthMm > heightMm ? 'Landscape' : 'Portrait';
+  return {
+    label: `Custom · ${orient}`,
+    widthMm: Math.round(widthMm * 10) / 10,
+    heightMm: Math.round(heightMm * 10) / 10,
+  };
+}
+
 export function canvasPixelSize(format: PageFormat, dpi: number) {
   return {
     width: mmToPx(format.widthMm, dpi),

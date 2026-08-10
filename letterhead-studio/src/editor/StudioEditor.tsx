@@ -8,10 +8,7 @@ import {
 } from 'react';
 import type { useLetterheadCanvas } from '../hooks/useLetterheadCanvas';
 import {
-  formatStageLabel,
-  type PageFormat,
-  type PageFormatId,
-  type PageOrientation,
+  stageInfoFromPageSize,
 } from '../lib/pageFormats';
 import { STUDIO_TOOLS, type StudioTool } from './studioTools';
 import { TOOL_ICONS } from './StudioIcons';
@@ -40,9 +37,6 @@ const TEXT_PRESET_DISPLAY = {
 type EditorApi = ReturnType<typeof useLetterheadCanvas>;
 
 export interface StudioEditorProps {
-  format: PageFormat;
-  formatId: PageFormatId;
-  orientation: PageOrientation;
   mode: 'design' | 'use';
   templateName: string;
   viewScale: number;
@@ -50,9 +44,6 @@ export interface StudioEditorProps {
   pageSize: { width: number; height: number };
   magicResize: boolean;
   editor: EditorApi;
-  onFormatIdChange: (id: PageFormatId) => void;
-  onOrientationChange: (o: PageOrientation) => void;
-  onModeChange: (mode: 'design' | 'use') => void;
   onTemplateNameChange: (name: string) => void;
   onZoomPercentChange: (n: number) => void;
   onMagicResizeChange: (value: boolean) => void;
@@ -83,9 +74,6 @@ async function readFileAsDataUrl(file: File): Promise<string> {
 }
 
 export function StudioEditor({
-  format,
-  formatId,
-  orientation,
   mode,
   templateName,
   viewScale,
@@ -93,9 +81,6 @@ export function StudioEditor({
   pageSize,
   magicResize,
   editor,
-  onFormatIdChange,
-  onOrientationChange,
-  onModeChange,
   onTemplateNameChange,
   onZoomPercentChange,
   onMagicResizeChange,
@@ -507,28 +492,36 @@ export function StudioEditor({
               />
             </div>
           </label>
-          <label className="studio-field">
-            <span>Color</span>
-            <input
-              type="color"
-              defaultValue="#1e293b"
-              onChange={(e) => editor.setBrushColor(e.target.value)}
-            />
-          </label>
-          <label className="studio-field">
-            <span>Opacity</span>
-            <div className="studio-range-row">
-              <input
-                type="range"
-                className="studio-range"
-                min={10}
-                max={100}
-                value={brushOpacity}
-                onChange={(e) => setBrushOpacity(Number(e.target.value))}
-              />
-              <span className="studio-range-value">{brushOpacity}%</span>
-            </div>
-          </label>
+          {drawMode === 'brush' ? (
+            <>
+              <label className="studio-field">
+                <span>Color</span>
+                <input
+                  type="color"
+                  defaultValue="#1e293b"
+                  onChange={(e) => editor.setBrushColor(e.target.value)}
+                />
+              </label>
+              <label className="studio-field">
+                <span>Opacity</span>
+                <div className="studio-range-row">
+                  <input
+                    type="range"
+                    className="studio-range"
+                    min={10}
+                    max={100}
+                    value={brushOpacity}
+                    onChange={(e) => setBrushOpacity(Number(e.target.value))}
+                  />
+                  <span className="studio-range-value">{brushOpacity}%</span>
+                </div>
+              </label>
+            </>
+          ) : (
+            <p className="studio-panel-hint studio-panel-hint-tight">
+              Semi-transparent yellow marker. Adjust stroke width only.
+            </p>
+          )}
         </>
       );
       break;
@@ -633,7 +626,11 @@ export function StudioEditor({
         ) : (
           <>
             <p className="studio-panel-hint studio-panel-hint-tight">On the active page</p>
-            <LayersPanel layers={layers} editor={editor} />
+            <LayersPanel
+              layers={layers}
+              activeLayerIndex={editor.getActiveLayerIndex()}
+              editor={editor}
+            />
             <div className="studio-panel-divider" />
             <SelectionPanel
               mode={mode}
@@ -655,16 +652,12 @@ export function StudioEditor({
           magicResize={magicResize}
           onMagicResizeChange={onMagicResizeChange}
           onApplyResize={onApplyPageResize}
-          formatId={formatId}
-          orientation={orientation}
-          mode={mode}
-          onFormatIdChange={onFormatIdChange}
-          onOrientationChange={onOrientationChange}
-          onModeChange={onModeChange}
         />
       );
       break;
   }
+
+  const stageInfo = stageInfoFromPageSize(pageSize);
 
   return (
     <div
@@ -751,21 +744,23 @@ export function StudioEditor({
         />
 
         <main className="studio-stage" data-testid="canvas-stage">
-          <span className="studio-sr-only" data-testid="stage-format-label">
-            {formatStageLabel(format)}
-          </span>
-          <span className="studio-sr-only" data-testid="stage-dimensions">
-            {format.widthMm} × {format.heightMm} mm
-          </span>
-          <div
-            className={`studio-canvas-frame canvas-frame${canvasDragOver ? ' studio-canvas-drop-target' : ''}`}
-            ref={editor.containerRef}
-            style={{ width: frameW, height: frameH }}
-            onDragOver={onCanvasDragOver}
-            onDragLeave={() => setCanvasDragOver(false)}
-            onDrop={onCanvasDrop}
-          >
-            <canvas ref={editor.canvasElRef} data-testid="letterhead-canvas" />
+          <div className="studio-stage-inner">
+            <span className="studio-sr-only" data-testid="stage-format-label">
+              {stageInfo.label}
+            </span>
+            <span className="studio-sr-only" data-testid="stage-dimensions">
+              {stageInfo.widthMm} × {stageInfo.heightMm} mm
+            </span>
+            <div
+              className={`studio-canvas-frame canvas-frame${canvasDragOver ? ' studio-canvas-drop-target' : ''}`}
+              ref={editor.containerRef}
+              style={{ width: frameW, height: frameH }}
+              onDragOver={onCanvasDragOver}
+              onDragLeave={() => setCanvasDragOver(false)}
+              onDrop={onCanvasDrop}
+            >
+              <canvas ref={editor.canvasElRef} data-testid="letterhead-canvas" />
+            </div>
           </div>
         </main>
 

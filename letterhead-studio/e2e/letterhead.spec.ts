@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { gotoEditor, setPageFormat, setEditorMode, studioTool } from './helpers';
 
 test.describe('Letterhead Studio', () => {
   test('loads editor with blank canvas', async ({ page }) => {
@@ -10,11 +11,12 @@ test.describe('Letterhead Studio', () => {
   });
 
   test('switches page format and use mode', async ({ page }) => {
-    await page.goto('/');
-    await page.getByRole('button', { name: 'Resize', exact: true }).click();
-    await page.getByTestId('page-format').selectOption('us-letter');
+    await gotoEditor(page);
+    await setPageFormat(page, 'us-letter');
     await expect(page.getByTestId('stage-format-label')).toContainText('US Letter');
-    await page.getByTestId('mode-use').click();
-    await expect(page.getByTestId('mode-use')).toHaveClass(/active/);
+    await setEditorMode(page, 'use');
+    await studioTool(page, 'Text');
+    await page.getByTestId('add-heading').click();
+    await expect(page.getByTestId('delete-selected')).toHaveCount(0);
   });
 });

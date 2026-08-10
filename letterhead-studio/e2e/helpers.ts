@@ -18,6 +18,48 @@ export async function studioTool(page: Page, name: string) {
   await page.getByRole('button', { name, exact: true }).click();
 }
 
+const FORMAT_PRINT_PRESETS: Record<string, string> = {
+  a4: 'A4 Portrait',
+  'us-letter': 'Letter Portrait',
+};
+
+export async function applyPageSizeMm(page: Page, wMm: number, hMm: number) {
+  await studioTool(page, 'Resize');
+  await page.getByTestId('resize-units').selectOption('cm');
+  const wCm = Math.round((wMm / 10) * 100) / 100;
+  const hCm = Math.round((hMm / 10) * 100) / 100;
+  await page.getByTestId('resize-width').fill(String(wCm));
+  await page.getByTestId('resize-height').fill(String(hCm));
+  await page.getByTestId('resize-apply').click();
+}
+
+export async function setPageFormat(page: Page, formatId: string) {
+  const fmt = FORMATS.find((f) => f.id === formatId);
+  if (!fmt) throw new Error(`Unknown format: ${formatId}`);
+  const preset = FORMAT_PRINT_PRESETS[formatId];
+  if (preset) {
+    await studioTool(page, 'Resize');
+    await page.getByRole('button', { name: preset, exact: true }).click();
+    return;
+  }
+  await applyPageSizeMm(page, fmt.w, fmt.h);
+}
+
+export async function setPageLandscape(page: Page) {
+  const size = await canvasSize(page);
+  await studioTool(page, 'Resize');
+  await page.getByTestId('resize-units').selectOption('px');
+  await page.getByTestId('resize-width').fill(String(size.height));
+  await page.getByTestId('resize-height').fill(String(size.width));
+  await page.getByTestId('resize-apply').click();
+}
+
+export async function setEditorMode(page: Page, mode: 'design' | 'use') {
+  await page.evaluate((m) => {
+    window.__letterheadSetMode?.(m);
+  }, mode);
+}
+
 export async function studioExport(
   page: Page,
   kind: 'export-png' | 'export-pdf' | 'export-json',
@@ -91,6 +133,7 @@ export function pngPixelRgba(buffer: Buffer, x: number, y: number) {
 
 declare global {
   interface Window {
+    __letterheadSetMode?: (mode: 'design' | 'use') => void;
     __letterheadEditor?: {
       getCounts: () => { total: number; content: number; guides: number };
       getCanvasPixelSize: () => { width: number; height: number };

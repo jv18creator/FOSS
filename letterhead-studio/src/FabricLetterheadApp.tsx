@@ -65,21 +65,26 @@ export function FabricLetterheadApp() {
     };
   }, [templateName, formatId, orientation]);
 
+  useEffect(() => {
+    (
+      window as Window & {
+        __letterheadSetMode?: (mode: 'design' | 'use') => void;
+      }
+    ).__letterheadSetMode = setMode;
+    return () => {
+      delete (
+        window as Window & {
+          __letterheadSetMode?: (mode: 'design' | 'use') => void;
+        }
+      ).__letterheadSetMode;
+    };
+  }, []);
+
   const applyPageResize = (widthPx: number, heightPx: number) => {
     setPageSize({
       width: Math.max(1, Math.round(widthPx)),
       height: Math.max(1, Math.round(heightPx)),
     });
-  };
-
-  const onFormatIdChange = (id: PageFormatId) => {
-    setFormatId(id);
-    setPageSize(canvasPixelSize(getFormatById(id, orientation), EDITOR_DPI));
-  };
-
-  const onOrientationChange = (o: PageOrientation) => {
-    setOrientation(o);
-    setPageSize(canvasPixelSize(getFormatById(formatId, o), EDITOR_DPI));
   };
 
   const onUploadLogo = async (file: File) => {
@@ -149,9 +154,6 @@ export function FabricLetterheadApp() {
 
   return (
     <StudioEditor
-      format={format}
-      formatId={formatId}
-      orientation={orientation}
       mode={mode}
       templateName={templateName}
       viewScale={viewScale}
@@ -159,9 +161,6 @@ export function FabricLetterheadApp() {
       pageSize={pageSize}
       magicResize={magicResize}
       editor={editor}
-      onFormatIdChange={onFormatIdChange}
-      onOrientationChange={onOrientationChange}
-      onModeChange={setMode}
       onTemplateNameChange={setTemplateName}
       onZoomPercentChange={setZoomPercent}
       onMagicResizeChange={setMagicResize}
