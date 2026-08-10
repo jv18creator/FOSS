@@ -1,0 +1,211 @@
+[     726ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:14333
+[   49709ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:14333
+[  124909ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:14333
+[  159344ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:14333
+[  160158ms] [WARNING] The specified value "rgb(0,0,0)" does not conform to the required format.  The value must be a valid CSS color. @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:1290
+[  160158ms] [WARNING] The specified value "rgb(0,0,0)" does not conform to the required format.  The value must be a valid CSS color. @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:1375
+[  160165ms] [WARNING] The specified value "rgb(0,0,0)" does not conform to the required format.  The value must be a valid CSS color. @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:1290
+[  160190ms] [WARNING] The specified value "rgb(0,0,0)" does not conform to the required format.  The value must be a valid CSS color. @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:1290
+[  166769ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:14333
+[  167126ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:14333
+[  167516ms] [WARNING] The specified value "rgb(0,0,0)" does not conform to the required format.  The value must be a valid CSS color. @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:1290
+[  167544ms] [WARNING] The specified value "rgb(0,0,0)" does not conform to the required format.  The value must be a valid CSS color. @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:1290
+[  167569ms] [WARNING] The specified value "rgb(0,0,0)" does not conform to the required format.  The value must be a valid CSS color. @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:1290
+[  167597ms] [WARNING] The specified value "rgb(0,0,0)" does not conform to the required format.  The value must be a valid CSS color. @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:1290
+[  203776ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:14333
+[  204307ms] [WARNING] The specified value "rgb(0,0,0)" does not conform to the required format.  The value must be a valid CSS color. @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:1290
+[  204307ms] [WARNING] The specified value "rgb(0,0,0)" does not conform to the required format.  The value must be a valid CSS color. @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:1375
+[  204315ms] [WARNING] The specified value "rgb(0,0,0)" does not conform to the required format.  The value must be a valid CSS color. @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:1290
+[  204340ms] [WARNING] The specified value "rgb(0,0,0)" does not conform to the required format.  The value must be a valid CSS color. @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:1290
+[  204365ms] [WARNING] The specified value "rgb(0,0,0)" does not conform to the required format.  The value must be a valid CSS color. @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:1290
+[  204381ms] [WARNING] The specified value "rgb(0,0,0)" does not conform to the required format.  The value must be a valid CSS color. @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:1290
+[  504511ms] [ERROR] A component is changing an uncontrolled input to be controlled. This is likely caused by the value changing from undefined to a defined value, which should not happen. Decide between using a controlled or uncontrolled input element for the lifetime of the component. More info: https://react.dev/link/controlled-components @ http://127.0.0.1:5173/@vite/client:528
+[  511195ms] [ERROR] React has detected a change in the order of Hooks called by %s. This will lead to bugs and errors if not fixed. For more information, read the Rules of Hooks: https://react.dev/link/rules-of-hooks
+
+   Previous render            Next render
+   ------------------------------------------------------
+%s   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ FabricLetterheadApp 1. useState                   useState
+2. useState                   useState
+3. useState                   useState
+4. useState                   useState
+5. useState                   useState
+6. useMemo                    useMemo
+7. useMemo                    useMemo
+8. useRef                     useRef
+9. useRef                     useRef
+10. useRef                    useRef
+11. useRef                    useRef
+12. useRef                    useRef
+13. useRef                    useRef
+14. useRef                    useRef
+15. useState                  useState
+16. useState                  useState
+17. useState                  useState
+18. useState                  useState
+19. useState                  useState
+20. useCallback               useCallback
+21. useCallback               useCallback
+22. useCallback               useCallback
+23. useCallback               useCallback
+24. useCallback               useCallback
+25. useRef                    useRef
+26. useRef                    useEffect
+ @ http://127.0.0.1:5173/@vite/client:528
+[  511199ms] Error: Rendered more hooks than during the previous render.
+    at updateWorkInProgressHook (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:4325:12)
+    at updateEffectImpl (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:4849:15)
+    at Object.useEffect (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:13249:5)
+    at exports.useEffect (http://127.0.0.1:5173/node_modules/.vite/deps/react.js?v=0d4cf826:716:31)
+    at useLetterheadCanvas (http://127.0.0.1:5173/src/hooks/useLetterheadCanvas.ts?t=1786337407404:366:2)
+    at FabricLetterheadApp (http://127.0.0.1:5173/src/FabricLetterheadApp.tsx?t=1786337407404:29:17)
+    at Object.react_stack_bottom_frame (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:12864:12)
+    at renderWithHooks (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:4211:19)
+    at updateFunctionComponent (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:5567:16)
+    at beginWork (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:6138:20)
+[  511198ms] [WARNING] %s
+
+%s
+ An error occurred in the <FabricLetterheadApp> component. Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries. @ http://127.0.0.1:5173/@vite/client:528
+[  513103ms] [ERROR] `NaN` is an invalid value for the `%s` css style property. width @ http://127.0.0.1:5173/@vite/client:528
+[  560384ms] ReferenceError: STARTER_TEMPLATES is not defined
+    at StudioEditor (http://127.0.0.1:5173/src/editor/StudioEditor.tsx?t=1786337456473:149:16)
+    at Object.react_stack_bottom_frame (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:12864:12)
+    at renderWithHooks (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:4211:19)
+    at updateFunctionComponent (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:5567:16)
+    at beginWork (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:6138:20)
+    at runWithFiberInDEV (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:850:66)
+    at performUnitOfWork (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:8427:92)
+    at workLoopSync (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:8323:37)
+    at renderRootSync (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:8307:6)
+    at performWorkOnRoot (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:7992:27)
+[  560367ms] [WARNING] %s
+
+%s
+ An error occurred in the <StudioEditor> component. Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries. @ http://127.0.0.1:5173/@vite/client:528
+[  564033ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:14333
+[  564114ms] ReferenceError: STARTER_TEMPLATES is not defined
+    at StudioEditor (http://127.0.0.1:5173/src/editor/StudioEditor.tsx?t=1786337456473:149:16)
+    at Object.react_stack_bottom_frame (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:12864:12)
+    at renderWithHooks (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:4211:19)
+    at updateFunctionComponent (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:5567:16)
+    at beginWork (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:6138:20)
+    at runWithFiberInDEV (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:850:66)
+    at performUnitOfWork (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:8427:92)
+    at workLoopSync (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:8323:37)
+    at renderRootSync (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:8307:6)
+    at performWorkOnRoot (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:7992:27)
+[  564094ms] [WARNING] %s
+
+%s
+ An error occurred in the <StudioEditor> component. Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries. @ http://127.0.0.1:5173/@vite/client:528
+[  570759ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/FabricLetterheadApp.tsx?t=1786337466994:0
+[  570760ms] [ERROR] [vite] Failed to reload /src/FabricLetterheadApp.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[  942797ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/ResizePanel.tsx?t=1786337839036:0
+[  942798ms] [ERROR] [vite] Failed to reload /src/editor/ResizePanel.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[  943182ms] [ERROR] [vite] Failed to reload /src/FabricLetterheadApp.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 1012725ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:14333
+[ 1013571ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:14333
+[ 1014294ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:14333
+[ 4510361ms] [LOG] [vite] server connection lost. Polling for restart... @ http://127.0.0.1:5173/@vite/client:998
+[ 4510562ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=fa28215f:14333
+[ 5418784ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342315018:0
+[ 5418785ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5419129ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342315365:0
+[ 5419129ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5420102ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342316336:0
+[ 5420102ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5421412ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342317649:0
+[ 5421412ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5421972ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342318208:0
+[ 5421973ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5426990ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342323205:0
+[ 5426990ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5427762ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342323998:0
+[ 5427762ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5428394ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342324631:0
+[ 5428395ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5429296ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342325531:0
+[ 5429297ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5430695ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342326931:0
+[ 5430695ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5431592ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342327830:0
+[ 5431592ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5443437ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342339674:0
+[ 5443437ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5451345ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342347576:0
+[ 5451345ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5452260ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342348496:0
+[ 5452260ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5453531ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342349762:0
+[ 5453531ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5456975ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342353209:0
+[ 5456975ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5458034ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342354270:0
+[ 5458035ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5469200ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342365435:0
+[ 5469201ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5473023ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342369259:0
+[ 5473024ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5474530ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342370765:0
+[ 5474530ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5476292ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342372529:0
+[ 5476292ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5478372ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342374609:0
+[ 5478372ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5483134ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342379370:0
+[ 5483134ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5483494ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342379727:0
+[ 5483494ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5491188ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342387423:0
+[ 5491188ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5500486ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342396719:0
+[ 5500486ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5517848ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342414042:0
+[ 5517848ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 5533847ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://127.0.0.1:5173/src/editor/studio-editor.css?t=1786342430075:0
+[ 5533847ms] [ERROR] [vite] Failed to reload /src/editor/studio-editor.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 6354857ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:5173/src/pages/CesdkLetterheadPage.tsx?t=1786343251088:0
+[ 6354857ms] [ERROR] [vite] Failed to reload /src/pages/CesdkLetterheadPage.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 6354861ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:5173/src/pages/CesdkLetterheadPage.tsx?t=1786343251089:0
+[ 6354861ms] [ERROR] [vite] Failed to reload /src/pages/CesdkLetterheadPage.tsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 6354969ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:5173/src/pages/CesdkLetterheadPage.css?t=1786343251205:0
+[ 6354969ms] [ERROR] [vite] Failed to reload /src/pages/CesdkLetterheadPage.css. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://127.0.0.1:5173/@vite/client:528
+[ 6355130ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:5173/src/pages/CesdkLetterheadPage.tsx?t=1786343251089:0
+[ 6358761ms] [LOG] [vite] server connection lost. Polling for restart... @ http://127.0.0.1:5173/@vite/client:998
+[ 6360078ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=5e7cbfe8:14333
+[ 6360127ms] TypeError: Cannot destructure property 'basename' of 'import_react.useContext(...)' as it is null.
+    at LinkWithRef (http://127.0.0.1:5173/node_modules/.vite/deps/react-router-dom.js?v=41569882:7305:8)
+    at Object.react_stack_bottom_frame (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=5e7cbfe8:12864:12)
+    at renderWithHooks (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=5e7cbfe8:4211:19)
+    at updateForwardRef (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=5e7cbfe8:5394:16)
+    at beginWork (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=5e7cbfe8:6202:21)
+    at runWithFiberInDEV (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=5e7cbfe8:850:66)
+    at performUnitOfWork (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=5e7cbfe8:8427:92)
+    at workLoopSync (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=5e7cbfe8:8323:37)
+    at renderRootSync (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=5e7cbfe8:8307:6)
+    at performWorkOnRoot (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=5e7cbfe8:7992:27)
+[ 6360122ms] [WARNING] %s
+
+%s
+ An error occurred in the <Link> component. Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries. @ http://127.0.0.1:5173/@vite/client:528
+[ 6360673ms] ReferenceError: Link is not defined
+    at StudioEditor (http://127.0.0.1:5173/src/editor/StudioEditor.tsx?t=1786343256889:1101:40)
+    at Object.react_stack_bottom_frame (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=5e7cbfe8:12864:12)
+    at renderWithHooks (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=5e7cbfe8:4211:19)
+    at updateFunctionComponent (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=5e7cbfe8:5567:16)
+    at beginWork (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=5e7cbfe8:6138:20)
+    at runWithFiberInDEV (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=5e7cbfe8:850:66)
+    at performUnitOfWork (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=5e7cbfe8:8427:92)
+    at workLoopSync (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=5e7cbfe8:8323:37)
+    at renderRootSync (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=5e7cbfe8:8307:6)
+    at performWorkOnRoot (http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=5e7cbfe8:7992:27)
+[ 6360673ms] [WARNING] %s
+
+%s
+ An error occurred in the <StudioEditor> component. Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries. @ http://127.0.0.1:5173/@vite/client:528

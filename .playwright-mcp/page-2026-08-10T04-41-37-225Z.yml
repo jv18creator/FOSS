@@ -1,0 +1,45 @@
+- generic [ref=e3]:
+  - heading "Letterhead Studio" [level=1] [ref=e4]
+  - navigation "Editor tools" [ref=e5]:
+    - button "Templates" [ref=e6] [cursor=pointer]
+    - button "Text" [ref=e12] [cursor=pointer]
+    - button "Elements" [ref=e16] [cursor=pointer]
+    - button "Draw" [ref=e21] [cursor=pointer]
+    - button "Upload" [ref=e26] [cursor=pointer]
+    - button "Background" [ref=e30] [cursor=pointer]
+    - button "Layers" [ref=e37] [cursor=pointer]
+    - button "Resize" [ref=e42] [cursor=pointer]
+    - generic [ref=e46]:
+      - button "Switch to dark mode" [ref=e47] [cursor=pointer]:
+        - generic [ref=e50]: Dark
+      - link "SDK" [ref=e51] [cursor=pointer]:
+        - /url: /cesdk
+  - complementary [ref=e52]:
+    - button "Collapse panel" [ref=e53] [cursor=pointer]
+    - complementary "templates options" [ref=e57]:
+      - heading "Templates" [level=2] [ref=e59]
+      - generic [ref=e60]:
+        - paragraph [ref=e61]: Start from a blank page. Build your letterhead with Text and Elements, then save or load template JSON.
+        - generic [ref=e63]:
+          - generic [ref=e64]: Template name
+          - textbox "Template name" [ref=e65]: My letterhead
+        - button "Save template JSON" [ref=e66] [cursor=pointer]
+        - generic [ref=e67] [cursor=pointer]: Load template JSON
+  - generic [ref=e68]:
+    - banner [ref=e69]:
+      - generic "My letterhead" [ref=e72]
+      - generic [ref=e74]:
+        - button "Undo" [disabled] [ref=e75]
+        - button "Redo" [disabled] [ref=e78]
+      - generic "Page background" [ref=e81] [cursor=pointer]:
+        - textbox "Page background" [ref=e83]: "#ffffff"
+      - button "Download" [ref=e85] [cursor=pointer]
+    - main [ref=e89]:
+      - generic [ref=e90]: A4 · Portrait
+      - generic [ref=e91]: 210 × 297 mm
+    - contentinfo [ref=e96]:
+      - button "Pages" [ref=e97] [cursor=pointer]
+      - generic [ref=e98]:
+        - button "Zoom out" [ref=e99] [cursor=pointer]: −
+        - generic [ref=e100]: 100%
+        - button "Zoom in" [ref=e101] [cursor=pointer]: +

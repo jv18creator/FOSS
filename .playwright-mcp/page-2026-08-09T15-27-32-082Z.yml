@@ -1,0 +1,73 @@
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic [ref=e7]:
+      - heading "Letterhead Studio" [level=1] [ref=e8]
+      - paragraph [ref=e9]: Fabric.js template demo
+    - generic [ref=e10]:
+      - heading "Template" [level=2] [ref=e11]
+      - generic [ref=e12]:
+        - generic [ref=e13]: Name
+        - textbox "Name" [ref=e14]: My letterhead
+      - generic [ref=e15]:
+        - generic [ref=e16]: Page size
+        - combobox "Page size" [ref=e17]:
+          - option "A4 — 210×297 mm (Global / India)" [selected]
+          - option "US Letter — 215.9×279.4 mm (US & Canada)"
+          - option "Legal — 215.9×355.6 mm (Legal documents)"
+          - option "Executive — 184.15×266.7 mm (Memos & stationery)"
+      - paragraph [ref=e18]:
+        - text: "Active:"
+        - strong [ref=e19]: A4
+        - text: (portrait) at 96 DPI on screen, 300 DPI export.
+    - generic [ref=e20]:
+      - heading "Orientation" [level=2] [ref=e21]
+      - tablist "Page orientation" [ref=e22]:
+        - tab "Portrait" [ref=e23] [cursor=pointer]
+        - tab "Landscape" [ref=e24] [cursor=pointer]
+    - generic [ref=e25]:
+      - heading "Mode" [level=2] [ref=e26]
+      - tablist [ref=e27]:
+        - tab "Design" [ref=e28] [cursor=pointer]
+        - tab "Use template" [ref=e29] [cursor=pointer]
+      - generic [ref=e30]:
+        - checkbox "Show safe margin (12 mm)" [checked] [ref=e31]
+        - text: Show safe margin (12 mm)
+    - generic [ref=e32]:
+      - heading "Elements" [level=2] [ref=e33]
+      - generic [ref=e34]:
+        - button "Heading" [ref=e35] [cursor=pointer]
+        - button "Body block" [ref=e36] [cursor=pointer]
+        - button "Divider" [ref=e37] [cursor=pointer]
+        - button "Header band" [ref=e38] [cursor=pointer]
+      - generic [ref=e39] [cursor=pointer]: Upload logo
+    - generic [ref=e40]:
+      - heading "Starters" [level=2] [ref=e41]
+      - button "Classic corporate" [ref=e42] [cursor=pointer]
+      - button "Minimal studio" [ref=e43] [cursor=pointer]
+    - generic [ref=e44]:
+      - heading "Export" [level=2] [ref=e45]
+      - button "Download PNG (300 DPI)" [ref=e46] [cursor=pointer]
+      - button "Download PDF" [ref=e47] [cursor=pointer]
+      - button "Save template JSON" [ref=e48] [cursor=pointer]
+      - generic [ref=e49] [cursor=pointer]: Load template JSON
+  - main [ref=e50]:
+    - generic [ref=e51]:
+      - generic [ref=e52]: A4 · Portrait
+      - generic [ref=e53]: 210 × 297 mm
+      - generic [ref=e54]: Design
+  - complementary [ref=e59]:
+    - generic [ref=e60]:
+      - heading "Layers" [level=2] [ref=e61]
+      - list [ref=e62]:
+        - listitem [ref=e63]: Add elements or load a starter template.
+    - generic [ref=e64]:
+      - heading "Selection" [level=2] [ref=e65]
+      - paragraph [ref=e66]: Select an object on the canvas or from layers.
+    - generic [ref=e67]:
+      - heading "How to demo" [level=2] [ref=e68]
+      - list [ref=e69]:
+        - listitem [ref=e70]: Pick a page size (A4, Letter, Legal, Executive).
+        - listitem [ref=e71]: Load a starter or build header + contact blocks.
+        - listitem [ref=e72]: Mark fields as editable; lock logos and bands.
+        - listitem [ref=e73]: Switch to Use template and edit placeholder text only.
+        - listitem [ref=e74]: Export PNG or PDF for print preview.
