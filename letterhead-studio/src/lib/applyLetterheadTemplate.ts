@@ -9,6 +9,7 @@ import {
 import type { LetterheadTemplateFile } from './letterheadTemplate';
 import { removeFabricGuides } from './guides';
 import { normalizeLetterheadLayout } from './normalizeLetterheadLayout';
+import { ensureWrappingTextObjects } from './studioText';
 
 export async function applyLetterheadTemplate(
   canvas: Canvas,
@@ -41,5 +42,7 @@ export async function applyLetterheadTemplate(
   await canvas.loadFromJSON(file.canvas);
   removeFabricGuides(canvas);
   normalizeLetterheadLayout(canvas);
+  const wrapPageW = pageSize?.width ?? canvas.getWidth();
+  ensureWrappingTextObjects(canvas, wrapPageW);
   canvas.requestRenderAll();
 }

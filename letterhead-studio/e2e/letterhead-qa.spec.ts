@@ -355,7 +355,19 @@ test.describe('H. Export / import', () => {
 });
 
 test.describe('B. Page bounds & pointer', () => {
-  test('objects clamp inside page when moved programmatically', async ({ page }) => {
+  test('objects can sit partially outside the page', async ({ page }) => {
+    await gotoEditor(page);
+    await studioTool(page, 'Text');
+    await page.getByTestId('add-heading').click();
+    await page.evaluate(() => {
+      window.__letterheadEditor!.moveActive(-40, -20);
+    });
+    const pos = await page.evaluate(() => window.__letterheadEditor!.getActivePosition());
+    expect(pos!.left).toBeLessThan(0);
+    expect(pos!.top).toBeLessThan(0);
+  });
+
+  test('objects clamp inside page when moved with clamp helper', async ({ page }) => {
     await gotoEditor(page);
     await studioTool(page, 'Text');
     await page.getByTestId('add-heading').click();

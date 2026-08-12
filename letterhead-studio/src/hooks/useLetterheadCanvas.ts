@@ -10,6 +10,7 @@ import {
   PencilBrush,
   Polygon,
   Rect,
+  Textbox,
   Triangle,
   loadSVGFromString,
   util,
@@ -35,9 +36,10 @@ import {
   displayScale,
 } from '../lib/canvasViewport';
 import { rescaleObjectsForPageResize } from '../lib/rescaleObjects';
-import { clampObjectToPage } from '../lib/pageBounds';
+import { clampObjectToPage, keepObjectPartiallyOnPage } from '../lib/pageBounds';
 import { centerObjectAt } from '../lib/objectLayout';
 import { normalizeLetterheadLayout } from '../lib/normalizeLetterheadLayout';
+import { createStudioTextbox, ensureWrappingTextObjects } from '../lib/studioText';
 import {
   applyLockState,
   applyUseMode,
@@ -45,6 +47,11 @@ import {
   setMeta,
   isGuide,
 } from '../lib/fabricMeta';
+import {
+  computeAlignmentSnap,
+  drawAlignmentGuides,
+  type AlignmentGuideLine,
+} from '../lib/alignmentGuides';
 import '../lib/fabricSetup';
 
 export type EditorMode = 'design' | 'use';
@@ -56,6 +63,7 @@ export type ActiveSelectionState =
       fill?: string;
       fontFamily?: string;
       fontSize?: number;
+      textAlign?: 'left' | 'center' | 'right' | 'justify';
       opacity?: number;
       locked?: boolean;
       placeholder?: boolean;
@@ -126,6 +134,7 @@ export function useLetterheadCanvas(
       await canvas.loadFromJSON(snap);
       removeFabricGuides(canvas);
       normalizeLetterheadLayout(canvas);
+      ensureWrappingTextObjects(canvas, pageRef.current.width);
       historyIndexRef.current = index;
       syncHistoryFlags();
       historyLockRef.current = false;
@@ -137,11 +146,15 @@ export function useLetterheadCanvas(
 
   const { width, height } = pageSize;
   const magicResizeRef = useRef(magicResize);
+  const modeRef = useRef(mode);
 
   useEffect(() => {
     magicResizeRef.current = magicResize;
   }, [magicResize]);
 
+  useEffect(() => {
+    modeRef.current = mode;
+  }, [mode]);
   const sizeRef = useRef({ width, height });
   const pageRef = useRef({ width, height });
   const formatRef = useRef(format);
@@ -174,6 +187,14 @@ export function useLetterheadCanvas(
     sizeRef.current = { width, height };
     syncCanvasViewport(canvas, width, height, viewScale);
 
+    let alignmentLines: AlignmentGuideLine[] = [];
+
+    const clearAlignmentGuides = () => {
+      if (alignmentLines.length === 0) return;
+      alignmentLines = [];
+      canvas.requestRenderAll();
+    };
+
     const onChange = () => {
       bump();
       pushHistory();
@@ -183,9 +204,52 @@ export function useLetterheadCanvas(
     canvas.on('object:modified', (e: { target?: FabricObject }) => {
       const obj = e.target;
       if (obj && !isGuide(obj)) {
-        clampObjectToPage(obj, pageRef.current.width, pageRef.current.height);
+        // Allow intentional overflow; only prevent fully losing the object.
+        keepObjectPartiallyOnPage(obj, pageRef.current.width, pageRef.current.height);
       }
+      clearAlignmentGuides();
       onChange();
+    });
+    canvas.on('object:moving', (e: { target?: FabricObject }) => {
+      const obj = e.target;
+      if (!obj || isGuide(obj) || modeRef.current === 'use') {
+        clearAlignmentGuides();
+        return;
+      }
+      const { width: pageW, height: pageH } = pageRef.current;
+
+      // Peers = every other canvas object (not guides, not members of this selection)
+      const nested = new Set<FabricObject>([obj]);
+      const maybeGroup = obj as FabricObject & { getObjects?: () => FabricObject[] };
+      if (typeof maybeGroup.getObjects === 'function') {
+        for (const child of maybeGroup.getObjects()) nested.add(child);
+      }
+      const peerTargets = canvas
+        .getObjects()
+        .filter((o) => !nested.has(o) && !isGuide(o));
+
+      const { lines, dx, dy } = computeAlignmentSnap(obj, peerTargets, pageW, pageH);
+      if (dx !== 0 || dy !== 0) {
+        obj.set({
+          left: (obj.left ?? 0) + dx,
+          top: (obj.top ?? 0) + dy,
+        });
+        obj.setCoords();
+      }
+      alignmentLines = lines;
+    });
+    canvas.on('mouse:up', clearAlignmentGuides);
+    canvas.on('after:render', () => {
+      if (alignmentLines.length === 0) return;
+      const ctx = canvas.contextContainer;
+      const vpt = canvas.viewportTransform ?? [1, 0, 0, 1, 0, 0];
+      drawAlignmentGuides(
+        ctx,
+        alignmentLines,
+        pageRef.current.width,
+        pageRef.current.height,
+        vpt,
+      );
     });
     canvas.on('path:created', (e) => {
       const path = e.path;
@@ -200,8 +264,22 @@ export function useLetterheadCanvas(
       bump();
       pushHistory();
     });
-    canvas.on('selection:created', () => bump());
-    canvas.on('selection:updated', () => bump());
+    canvas.on('selection:created', () => {
+      const active = canvas.getActiveObject();
+      if (active instanceof FabricText && !(active instanceof Textbox)) {
+        const next = ensureWrappingTextObjects(canvas, pageRef.current.width, active);
+        if (next) canvas.setActiveObject(next);
+      }
+      bump();
+    });
+    canvas.on('selection:updated', () => {
+      const active = canvas.getActiveObject();
+      if (active instanceof FabricText && !(active instanceof Textbox)) {
+        const next = ensureWrappingTextObjects(canvas, pageRef.current.width, active);
+        if (next) canvas.setActiveObject(next);
+      }
+      bump();
+    });
     canvas.on('selection:cleared', () => bump());
 
     removeFabricGuides(canvas);
@@ -744,11 +822,10 @@ export function useLetterheadCanvas(
     const canvas = fabricRef.current;
     if (!canvas) return;
     const m = (mm: number) => mmToPx(mm, EDITOR_DPI);
-    const text = new FabricText('Company name', {
+    const text = createStudioTextbox('Company name', {
       left: m(SAFE_MARGIN_MM),
       top: m(20),
-      originX: 'left',
-      originY: 'top',
+      pageWidth: width,
       fontFamily: 'Georgia, serif',
       fontSize: 24,
       fill: '#0f172a',
@@ -771,11 +848,10 @@ export function useLetterheadCanvas(
     const canvas = fabricRef.current;
     if (!canvas) return;
     const m = (mm: number) => mmToPx(mm, EDITOR_DPI);
-    const text = new FabricText('Address line\nCity, ZIP  •  phone@email', {
+    const text = createStudioTextbox('Address line\nCity, ZIP  •  phone@email', {
       left: m(SAFE_MARGIN_MM),
       top: m(40),
-      originX: 'left',
-      originY: 'top',
+      pageWidth: width,
       fontFamily: 'system-ui, sans-serif',
       fontSize: 11,
       fill: '#475569',
@@ -859,9 +935,26 @@ export function useLetterheadCanvas(
   const updateSelectedText = (value: string) => {
     const canvas = fabricRef.current;
     if (!canvas) return;
-    const obj = canvas.getActiveObject();
+    let obj = canvas.getActiveObject();
+    if (obj && obj instanceof FabricText && !(obj instanceof Textbox)) {
+      const next = ensureWrappingTextObjects(canvas, pageRef.current.width, obj);
+      if (next) {
+        canvas.setActiveObject(next);
+        obj = next;
+      }
+    }
     if (obj && obj instanceof FabricText) {
       obj.set({ text: value });
+      if (obj instanceof Textbox) {
+        obj.set({ splitByGrapheme: true });
+        const maxWrap = Math.max(
+          100,
+          pageRef.current.width - (obj.left ?? 0) - mmToPx(SAFE_MARGIN_MM, EDITOR_DPI),
+        );
+        if ((obj.width ?? 0) > maxWrap) obj.set({ width: maxWrap });
+        obj.initDimensions();
+      }
+      obj.setCoords();
       canvas.requestRenderAll();
       bump();
     }
@@ -1053,11 +1146,10 @@ export function useLetterheadCanvas(
       left: mmToPx(SAFE_MARGIN_MM, EDITOR_DPI),
       top: mmToPx(35, EDITOR_DPI),
     };
-    const text = new FabricText(preset.text, {
+    const text = createStudioTextbox(preset.text, {
       left: anchor.left,
       top: anchor.top,
-      originX: 'left',
-      originY: 'top',
+      pageWidth: width,
       fontFamily: preset.fontFamily,
       fontSize: preset.fontSize,
       fill: '#0f172a',
@@ -1092,11 +1184,10 @@ export function useLetterheadCanvas(
       left: mmToPx(SAFE_MARGIN_MM, EDITOR_DPI),
       top: mmToPx(60, EDITOR_DPI),
     };
-    const text = new FabricText(preset.text, {
+    const text = createStudioTextbox(preset.text, {
       left: anchor.left,
       top: anchor.top,
-      originX: 'left',
-      originY: 'top',
+      pageWidth: width,
       fontFamily: preset.fontFamily,
       fontSize: preset.fontSize,
       fill: preset.fill,
@@ -1187,6 +1278,19 @@ export function useLetterheadCanvas(
     const obj = canvas?.getActiveObject();
     if (!canvas || !obj || !(obj instanceof FabricText)) return;
     obj.set({ fontSize: size });
+    if (obj instanceof Textbox) obj.initDimensions();
+    canvas.requestRenderAll();
+    pushHistory();
+    bump();
+  };
+
+  const updateSelectedTextAlign = (align: 'left' | 'center' | 'right') => {
+    const canvas = fabricRef.current;
+    const obj = canvas?.getActiveObject();
+    if (!canvas || !obj || !(obj instanceof FabricText)) return;
+    obj.set({ textAlign: align });
+    if (obj instanceof Textbox) obj.initDimensions();
+    obj.setCoords();
     canvas.requestRenderAll();
     pushHistory();
     bump();
@@ -1271,11 +1375,17 @@ export function useLetterheadCanvas(
     const meta = getMeta(obj);
     const opacity = obj.opacity ?? 1;
     if (obj instanceof FabricText) {
+      const align = obj.textAlign;
+      const textAlign =
+        align === 'center' || align === 'right' || align === 'justify' || align === 'left'
+          ? align
+          : 'left';
       return {
         kind: 'text',
         fill: (obj.fill as string) ?? '#000000',
         fontFamily: obj.fontFamily,
         fontSize: obj.fontSize,
+        textAlign,
         opacity,
         locked: meta?.locked,
         placeholder: meta?.placeholder,
@@ -1373,6 +1483,7 @@ export function useLetterheadCanvas(
     updateSelectedFill,
     updateSelectedFontFamily,
     updateSelectedFontSize,
+    updateSelectedTextAlign,
     updateSelectedOpacity,
     bringForward,
     sendBackward,

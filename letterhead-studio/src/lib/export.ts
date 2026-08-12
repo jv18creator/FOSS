@@ -92,6 +92,9 @@ export async function exportPng(
   downloadBlob(blob, `${slugify(name)}-${format.id}.png`);
 }
 
+/** JPEG quality for PDF raster; PNG-in-PDF was ~25MB for any A4 page at 300dpi. */
+const PDF_JPEG_QUALITY = 0.88;
+
 export async function exportPdf(
   canvas: Canvas,
   format: PageFormat,
@@ -104,8 +107,10 @@ export async function exportPdf(
   const restore = withExportViewport(canvas, pageSizePx.width, pageSizePx.height);
   canvas.requestRenderAll();
 
+  // JPEG keeps print DPI while avoiding the fixed ~25MB uncompressed PNG embed.
   const dataUrl = canvas.toDataURL({
-    format: 'png',
+    format: 'jpeg',
+    quality: PDF_JPEG_QUALITY,
     multiplier: scale,
     enableRetinaScaling: false,
   });
@@ -123,6 +128,6 @@ export async function exportPdf(
     format: [widthMm, heightMm],
   });
 
-  pdf.addImage(dataUrl, 'PNG', 0, 0, widthMm, heightMm);
+  pdf.addImage(dataUrl, 'JPEG', 0, 0, widthMm, heightMm);
   pdf.save(`${slugify(name)}-${format.id}.pdf`);
 }

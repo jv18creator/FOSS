@@ -217,3 +217,42 @@ export function IconMoon({ className }: IconProps) {
     </svg>
   );
 }
+
+export function IconAlignLeft({ className }: IconProps) {
+  return (
+    <svg className={`${base} ${className ?? ''}`} viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="M4 6h16M4 12h10M4 18h14"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export function IconAlignCenter({ className }: IconProps) {
+  return (
+    <svg className={`${base} ${className ?? ''}`} viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="M4 6h16M7 12h10M5 18h14"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export function IconAlignRight({ className }: IconProps) {
+  return (
+    <svg className={`${base} ${className ?? ''}`} viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="M4 6h16M10 12h10M6 18h14"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}

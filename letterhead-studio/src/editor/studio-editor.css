@@ -852,6 +852,22 @@
   max-width: 72px;
 }
 
+.studio-text-align {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--studio-border-strong);
+  border-radius: 6px;
+  background: var(--studio-input-bg);
+}
+
+.studio-topbar .studio-text-align-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+}
+
 .studio-text-btn {
   display: inline-flex;
   align-items: center;

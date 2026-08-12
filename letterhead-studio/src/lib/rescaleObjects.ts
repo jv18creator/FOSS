@@ -1,4 +1,4 @@
-import { FabricText, Line, Rect, type FabricObject } from 'fabric';
+import { FabricText, Line, Rect, Textbox, type FabricObject } from 'fabric';
 import { isGuide } from './fabricMeta';
 
 /** Rescale canvas objects when the page pixel size changes. */
@@ -18,6 +18,18 @@ export function rescaleObjectsForPageResize(
         x2: (line.x2 ?? 0) * sx,
         y2: (line.y2 ?? 0) * sy,
       });
+    } else if (obj instanceof Textbox) {
+      const size = obj.fontSize ?? 12;
+      obj.set({
+        left: (obj.left ?? 0) * sx,
+        top: (obj.top ?? 0) * sy,
+        fontSize: size * sy,
+        width: (obj.width ?? 100) * sx,
+        scaleX: 1,
+        scaleY: 1,
+        splitByGrapheme: true,
+      });
+      obj.initDimensions();
     } else if (obj instanceof FabricText) {
       const size = obj.fontSize ?? 12;
       obj.set({

@@ -4,6 +4,9 @@ import type { EditorMode } from '../hooks/useLetterheadCanvas';
 import type { ActiveSelectionState } from '../hooks/useLetterheadCanvas';
 import { STUDIO_FONT_FAMILIES, studioFontSizeSelectOptions } from './studioFonts';
 import {
+  IconAlignCenter,
+  IconAlignLeft,
+  IconAlignRight,
   IconDelete,
   IconDownload,
   IconDuplicate,
@@ -31,6 +34,7 @@ interface StudioTopBarProps {
     updateSelectedFill: (color: string) => void;
     updateSelectedFontFamily: (family: string) => void;
     updateSelectedFontSize: (size: number) => void;
+    updateSelectedTextAlign: (align: 'left' | 'center' | 'right') => void;
     updateSelectedOpacity: (opacity: number) => void;
     setPageBackground: (color: string) => void;
   };
@@ -148,6 +152,33 @@ export function StudioTopBar({
                   </option>
                 ))}
               </select>
+              <div
+                className="studio-text-align"
+                role="group"
+                aria-label="Text alignment"
+              >
+                {(
+                  [
+                    { id: 'left', label: 'Align left', Icon: IconAlignLeft },
+                    { id: 'center', label: 'Align center', Icon: IconAlignCenter },
+                    { id: 'right', label: 'Align right', Icon: IconAlignRight },
+                  ] as const
+                ).map(({ id, label, Icon }) => (
+                  <button
+                    key={id}
+                    type="button"
+                    className={`studio-icon-btn studio-text-align-btn${
+                      (selection.textAlign ?? 'left') === id ? ' active' : ''
+                    }`}
+                    aria-label={label}
+                    aria-pressed={(selection.textAlign ?? 'left') === id}
+                    disabled={mode === 'use' && !selection.placeholder}
+                    onClick={() => editor.updateSelectedTextAlign(id)}
+                  >
+                    <Icon />
+                  </button>
+                ))}
+              </div>
             </>
           )}
         </div>
